@@ -1,5 +1,7 @@
 extends Node2D
 
+onready var Tables = $Tables 
+
 var active:bool = true
 var lock_rotation = true
 
@@ -27,8 +29,9 @@ func set_database(db:Sql.Database):
 	for i in db.tables.size():
 		var t = preload("res://graph/TableNode.tscn").instance()
 		t.init(db.tables[i])
-		add_child(t)
+		Tables.add_child(t)
 		t.position.x = i * 100
+		t.position.y = rand_range(-50, 50)
 		table_map[db.tables[i].name] = t
 	
 	for table in db.tables:

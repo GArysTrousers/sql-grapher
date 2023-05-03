@@ -16,6 +16,6 @@ func init(col:Sql.Column):
 	if col.foreign_key:
 		var fk = Label.new()
 		fk.text = "FK"
-		fk.add_color_override("font_color", Color.green)
+		fk.add_color_override("font_color", Palette.green)
 		fk.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(fk)

@@ -118,9 +118,25 @@ margin_right = 1018.0
 margin_bottom = 563.0
 size_flags_horizontal = 3
 
-[node name="HSplitContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
 margin_right = 1012.0
-margin_bottom = 530.0
+margin_bottom = 23.0
+
+[node name="Control" type="Control" parent="TabContainer/Parser/Parser/HBoxContainer"]
+margin_right = 954.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="Import" type="Button" parent="TabContainer/Parser/Parser/HBoxContainer"]
+margin_left = 958.0
+margin_right = 1012.0
+margin_bottom = 23.0
+text = "Import"
+
+[node name="HSplitContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
+margin_top = 27.0
+margin_right = 1012.0
+margin_bottom = 557.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -128,6 +144,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 margin_right = 504.0
 margin_bottom = 530.0
+hint_tooltip = "Paste your database creation commands here"
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "-- --------------------------------------------------------
@@ -254,12 +271,6 @@ draw_tabs = true
 draw_spaces = true
 script = ExtResource( 3 )
 
-[node name="Import" type="Button" parent="TabContainer/Parser/Parser"]
-margin_top = 534.0
-margin_right = 1012.0
-margin_bottom = 557.0
-text = "Import"
-
 [node name="Graph" type="PanelContainer" parent="TabContainer"]
 visible = false
 margin_top = 31.0
@@ -281,5 +292,5 @@ physics_object_picking = true
 
 [node name="Graph" parent="TabContainer/Graph/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
-[connection signal="pressed" from="TabContainer/Parser/Parser/Import" to="." method="_on_Import_pressed"]
+[connection signal="pressed" from="TabContainer/Parser/Parser/HBoxContainer/Import" to="." method="_on_Import_pressed"]
 [connection signal="visibility_changed" from="TabContainer/Graph" to="TabContainer/Graph/ViewportContainer" method="_on_Graph_visibility_changed"]

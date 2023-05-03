@@ -10,6 +10,8 @@ script = ExtResource( 1 )
 current = true
 script = ExtResource( 2 )
 
+[node name="Tables" type="Node2D" parent="."]
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
