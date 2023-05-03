@@ -5,6 +5,7 @@ var lock_rotation = true
 
 var connections = []
 var force:Vector2
+var force_magnitude:float = 0.5
 
 func _ready():
 	pass # Replace with function body.
@@ -13,8 +14,8 @@ func _physics_process(delta):
 	if active:
 		for con in connections:
 			force = con.get_force()
-			con.a.apply_central_impulse(force)
-			con.b.apply_central_impulse(-force)
+			con.a.apply_central_impulse(force * force_magnitude)
+			con.b.apply_central_impulse(-force * force_magnitude)
 		update()
 	
 func _draw():

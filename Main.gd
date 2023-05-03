@@ -27,6 +27,9 @@ func parse_input():
 	# remove first blank lines
 	re.compile('^\n{2,}')
 	text = re.sub(text, '', true)
+	# remove decimal brackets
+	re.compile('decimal\\(\\d+,\\d+\\)')
+	text = re.sub(text, 'decimal()', true)
 	
 	get_node("%CleanerOutput").text = text
 	

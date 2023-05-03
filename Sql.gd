@@ -13,6 +13,7 @@ enum {
 	SetPrimaryKey,
 	SetUniqueKey,
 	SetForeignKey,
+	NotSupportedColumns,
 }
 
 var patterns = {
@@ -20,10 +21,11 @@ var patterns = {
 		Command: '^(?<command>CREATE TABLE|USE|CREATE DATABASE)',
 		CreateDatabase: 'CREATE DATABASE (IF NOT EXISTS )?`(?<name>[^`]+)`',
 		CreateTable: 'CREATE TABLE (IF NOT EXISTS)? `(?<name>[^`]+)` \\((?<cols>.+)\\)',
-		CreateColumn: '^\\s*`(?<name>.+)` (?<type>\\S+)',
+		CreateColumn: '^\\s*`?(?<name>[^\\s`]+)`? (?<type>[^(\\s]+)',
 		SetPrimaryKey: '^\\s*PRIMARY KEY \\(`?(?<name>[^`]+)`?\\)',
 		SetUniqueKey: '^\\s*UNIQUE KEY (`[^`]+`)? \\(`?(?<name>[^`]+)`?\\)',
-		SetForeignKey: 'FOREIGN KEY \\(`?(?<l_key>[^`]+)`?\\) REFERENCES `?(?<f_table>[^`]+)`?\\s*\\(`?(?<f_key>[^`]+)`?\\)'
+		SetForeignKey: 'FOREIGN KEY \\(`?(?<l_key>[^`]+)`?\\) REFERENCES `?(?<f_table>[^`]+)`?\\s*\\(`?(?<f_key>[^`]+)`?\\)',
+		NotSupportedColumns: '^\\s*(KEY|CONSTRAINT)',
 	}
 }
 
@@ -60,7 +62,7 @@ class Database:
 		var tbs = ""
 		for t in tables:
 			tbs += t.to_string() + '\n'
-		var output = "Name: %s\n%s" % [name, tbs]
+		var output = "Database: %s\n%s" % [name, tbs]
 		return output
 		
 
@@ -74,14 +76,16 @@ class Table:
 		var cols_commands = res.get_string("cols").split(',')
 		
 		for c in cols_commands:
-			if Sql.parse(c, Sql.CreateColumn):
-				cols.append(Column.new().parse(c))
-			elif Sql.parse(c, Sql.SetPrimaryKey):
+			if Sql.parse(c, Sql.SetPrimaryKey):
 				add_primary_key(c)
 			elif Sql.parse(c, Sql.SetUniqueKey):
 				add_unique_key(c)
 			elif Sql.parse(c, Sql.SetForeignKey):
 				add_foreign_key(c)
+			elif Sql.parse(c, Sql.NotSupportedColumns):
+				continue
+			elif Sql.parse(c, Sql.CreateColumn):
+				cols.append(Column.new().parse(c))
 		return self
 	
 	func add_primary_key(command):

@@ -10,9 +10,8 @@ func init(table):
 func _ready():
 	get_node("%TableName").text = data.name
 	for col in data.cols:
-		var l = Label.new()
-		l.text = col.name
-		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var l = preload("res://graph/ColumnNode.tscn").instance()
+		l.init(col)
 		get_node("%Columns").add_child(l)
 	
 	yield(get_tree(), "idle_frame")
@@ -22,9 +21,13 @@ func _physics_process(delta):
 	if grabbed:
 		if !Input.is_action_pressed("left_click"):
 			grabbed = false
-#		global_position = get_global_mouse_position()
 		apply_central_impulse(get_global_mouse_position() - global_position)
-	
+
+func _integrate_forces(state):
+	if mode == MODE_CHARACTER:
+		rotation = 0
+
+
 func _on_Table_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:

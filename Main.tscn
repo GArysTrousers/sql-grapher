@@ -126,7 +126,7 @@ size_flags_vertical = 3
 
 [node name="SqlInput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
-margin_right = 334.0
+margin_right = 504.0
 margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -147,12 +147,54 @@ text = "-- --------------------------------------------------------
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for test-db
-CREATE DATABASE IF NOT EXISTS `test-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `test-db`;
+-- Dumping database structure for vet-db
+CREATE DATABASE IF NOT EXISTS `vet-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `vet-db`;
 
--- Dumping structure for table test-db.cat
-CREATE TABLE IF NOT EXISTS `cat` (
+-- Dumping structure for table vet-db.appointment
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `petId` int(11) DEFAULT NULL,
+  `vetId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_appointment_pet` (`petId`),
+  KEY `FK_appointment_vet_doctor` (`vetId`),
+  CONSTRAINT `FK_appointment_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_appointment_vet_doctor` FOREIGN KEY (`vetId`) REFERENCES `vet_doctor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.bill
+CREATE TABLE IF NOT EXISTS `bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `amount` decimal(20,6) NOT NULL DEFAULT 0.000000,
+  `personId` int(11) NOT NULL DEFAULT 0,
+  `petId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_bill_person` (`personId`),
+  KEY `FK_bill_pet` (`petId`),
+  CONSTRAINT `FK_bill_person` FOREIGN KEY (`personId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_bill_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.customer
+CREATE TABLE IF NOT EXISTS `customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.pet
+CREATE TABLE IF NOT EXISTS `pet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `owner` int(11) DEFAULT NULL,
@@ -160,16 +202,15 @@ CREATE TABLE IF NOT EXISTS `cat` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `chip_code` (`chip_code`),
   KEY `owner` (`owner`),
-  CONSTRAINT `owner` FOREIGN KEY (`owner`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `owner` FOREIGN KEY (`owner`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
--- Dumping structure for table test-db.person
-CREATE TABLE IF NOT EXISTS `person` (
+-- Dumping structure for table vet-db.vet_doctor
+CREATE TABLE IF NOT EXISTS `vet_doctor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
+  `name` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -188,6 +229,7 @@ script = ExtResource( 2 )
 
 [node name="CleanerOutput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
+visible = false
 margin_left = 338.0
 margin_right = 673.0
 margin_bottom = 530.0
@@ -201,7 +243,7 @@ script = ExtResource( 2 )
 
 [node name="ParserOutput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
-margin_left = 677.0
+margin_left = 508.0
 margin_right = 1012.0
 margin_bottom = 530.0
 size_flags_horizontal = 3
