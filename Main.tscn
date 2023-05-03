@@ -1,7 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://SqlTextEdit.gd" type="Script" id=2]
+[ext_resource path="res://SqlSummeryTextEdit.gd" type="Script" id=3]
+[ext_resource path="res://graph/Graph.tscn" type="PackedScene" id=4]
+[ext_resource path="res://graph/GraphHolder.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=9]
 
 [sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 6.0
@@ -19,11 +24,11 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="DynamicFontData" id=1]
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://JetBrainsMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=8]
-font_data = SubResource( 1 )
+font_data = SubResource( 6 )
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
@@ -32,7 +37,7 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=12]
 content_margin_left = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 6.0
@@ -44,35 +49,51 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 
 [sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0.482353, 0.870588, 0.862745, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
 [sub_resource type="DynamicFont" id=2]
-size = 11
-font_data = SubResource( 1 )
+size = 12
+use_filter = true
+font_data = SubResource( 6 )
 
 [sub_resource type="Theme" id=3]
 default_font = SubResource( 2 )
+HScrollBar/styles/grabber = SubResource( 9 )
+HScrollBar/styles/grabber_highlight = SubResource( 9 )
+HScrollBar/styles/grabber_pressed = SubResource( 9 )
+HScrollBar/styles/scroll = SubResource( 9 )
+HScrollBar/styles/scroll_focus = SubResource( 9 )
 PanelContainer/styles/panel = SubResource( 7 )
 TabContainer/fonts/font = SubResource( 8 )
 TabContainer/styles/panel = SubResource( 5 )
-TabContainer/styles/tab_bg = SubResource( 6 )
-TabContainer/styles/tab_disabled = SubResource( 6 )
-TabContainer/styles/tab_fg = SubResource( 6 )
+TabContainer/styles/tab_bg = SubResource( 12 )
+TabContainer/styles/tab_disabled = SubResource( 12 )
+TabContainer/styles/tab_fg = SubResource( 12 )
 TextEdit/colors/font_color = Color( 0.678431, 0.678431, 0.678431, 1 )
 TextEdit/colors/font_color_readonly = Color( 0.678431, 0.678431, 0.678431, 1 )
 TextEdit/styles/completion = SubResource( 4 )
 TextEdit/styles/focus = SubResource( 4 )
 TextEdit/styles/normal = SubResource( 4 )
 TextEdit/styles/read_only = SubResource( 4 )
+VScrollBar/styles/grabber = SubResource( 10 )
+VScrollBar/styles/scroll = SubResource( 11 )
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -99,14 +120,14 @@ size_flags_horizontal = 3
 
 [node name="HSplitContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
 margin_right = 1012.0
-margin_bottom = 531.0
+margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SqlInput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
 margin_right = 334.0
-margin_bottom = 531.0
+margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "-- --------------------------------------------------------
@@ -126,11 +147,11 @@ text = "-- --------------------------------------------------------
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for whatif
-CREATE DATABASE IF NOT EXISTS `whatif` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `whatif`;
+-- Dumping database structure for test-db
+CREATE DATABASE IF NOT EXISTS `test-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `test-db`;
 
--- Dumping structure for table whatif.cat
+-- Dumping structure for table test-db.cat
 CREATE TABLE IF NOT EXISTS `cat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -144,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `cat` (
 
 -- Data exporting was unselected.
 
--- Dumping structure for table whatif.person
+-- Dumping structure for table test-db.person
 CREATE TABLE IF NOT EXISTS `person` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -169,7 +190,7 @@ script = ExtResource( 2 )
 unique_name_in_owner = true
 margin_left = 338.0
 margin_right = 673.0
-margin_bottom = 531.0
+margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 readonly = true
@@ -182,32 +203,41 @@ script = ExtResource( 2 )
 unique_name_in_owner = true
 margin_left = 677.0
 margin_right = 1012.0
-margin_bottom = 531.0
+margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 readonly = true
 show_line_numbers = true
 draw_tabs = true
 draw_spaces = true
+script = ExtResource( 3 )
 
 [node name="Import" type="Button" parent="TabContainer/Parser/Parser"]
-margin_top = 535.0
+margin_top = 534.0
 margin_right = 1012.0
 margin_bottom = 557.0
 text = "Import"
 
 [node name="Graph" type="PanelContainer" parent="TabContainer"]
 visible = false
+margin_top = 31.0
 margin_right = 12.0
 margin_bottom = 12.0
 
-[node name="Graph" type="TextureRect" parent="TabContainer/Graph"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 41.0
-margin_right = -4.0
-margin_bottom = 29.0
-size_flags_horizontal = 3
+[node name="ViewportContainer" type="ViewportContainer" parent="TabContainer/Graph"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 6.0
+margin_bottom = 6.0
+script = ExtResource( 5 )
+
+[node name="Viewport" type="Viewport" parent="TabContainer/Graph/ViewportContainer"]
+size = Vector2( 100, 100 )
+handle_input_locally = false
+render_target_update_mode = 0
+physics_object_picking = true
+
+[node name="Graph" parent="TabContainer/Graph/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
 [connection signal="pressed" from="TabContainer/Parser/Parser/Import" to="." method="_on_Import_pressed"]
+[connection signal="visibility_changed" from="TabContainer/Graph" to="TabContainer/Graph/ViewportContainer" method="_on_Graph_visibility_changed"]
