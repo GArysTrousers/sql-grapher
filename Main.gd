@@ -1,6 +1,9 @@
 extends Control
 
 func _ready():
+	var flavour_selector = get_node('%Flavours')
+	for f in Sql.flavour_names:
+		flavour_selector.add_item(f)
 	parse_input()
 
 
@@ -79,3 +82,7 @@ func parse_use(command:String):
 		
 		
 		
+
+
+func _on_Flavours_item_selected(index):
+	pass # Replace with function body.

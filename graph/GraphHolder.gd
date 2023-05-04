@@ -7,6 +7,7 @@ func _ready():
 	get_tree().connect("screen_resized", self, "on_resized")
 	get_parent().connect("visibility_changed", self, "on_resized")
 	set_viewport_size()
+	_on_Graph_visibility_changed()
 
 func set_viewport_size():
 	yield(get_tree(), "idle_frame")
@@ -28,3 +29,4 @@ func _input(event:InputEvent):
 
 func _on_Graph_visibility_changed():
 	$Viewport/Graph.active = tab.visible
+	viewport.gui_disable_input = !tab.visible

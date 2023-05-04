@@ -122,7 +122,14 @@ size_flags_horizontal = 3
 margin_right = 1012.0
 margin_bottom = 23.0
 
+[node name="Flavours" type="OptionButton" parent="TabContainer/Parser/Parser/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 85.0
+margin_bottom = 23.0
+text = "Flavours"
+
 [node name="Control" type="Control" parent="TabContainer/Parser/Parser/HBoxContainer"]
+margin_left = 89.0
 margin_right = 954.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
@@ -144,7 +151,6 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 margin_right = 504.0
 margin_bottom = 530.0
-hint_tooltip = "Paste your database creation commands here"
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "-- --------------------------------------------------------

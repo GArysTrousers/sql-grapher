@@ -5,6 +5,9 @@ var flavour = Flavours.MySQL
 enum Flavours {
 	MySQL
 }
+const flavour_names = ["MySQL"]
+	
+
 enum {
 	Command,
 	CreateDatabase,
