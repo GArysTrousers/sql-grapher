@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://SqlTextEdit.gd" type="Script" id=2]
@@ -6,19 +6,69 @@
 [ext_resource path="res://graph/Graph.tscn" type="PackedScene" id=4]
 [ext_resource path="res://graph/GraphHolder.gd" type="Script" id=5]
 
+[sub_resource type="StyleBoxFlat" id=13]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.25, 0.25, 0.25, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=14]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.333333, 0.333333, 0.333333, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=15]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.203922, 0.203922, 0.203922, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
 [sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="StyleBoxFlat" id=7]
-content_margin_left = 6.0
-content_margin_right = 6.0
-content_margin_top = 6.0
-content_margin_bottom = 6.0
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0.792157, 0.454902, 0.901961, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -48,22 +98,6 @@ border_width_right = 3
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 
-[sub_resource type="StyleBoxFlat" id=4]
-content_margin_left = 5.0
-content_margin_right = 5.0
-content_margin_top = 5.0
-content_margin_bottom = 5.0
-bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.611765, 0.611765, 0.611765, 1 )
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=11]
@@ -75,12 +109,24 @@ font_data = SubResource( 6 )
 
 [sub_resource type="Theme" id=3]
 default_font = SubResource( 2 )
+Button/styles/disabled = SubResource( 13 )
+Button/styles/focus = null
+Button/styles/hover = SubResource( 14 )
+Button/styles/normal = SubResource( 13 )
+Button/styles/pressed = SubResource( 15 )
+CheckButton/constants/hseparation = 7
+CheckButton/styles/disabled = SubResource( 16 )
+CheckButton/styles/focus = SubResource( 16 )
+CheckButton/styles/hover = SubResource( 16 )
+CheckButton/styles/hover_pressed = SubResource( 16 )
+CheckButton/styles/normal = SubResource( 17 )
+CheckButton/styles/pressed = SubResource( 16 )
 HScrollBar/styles/grabber = SubResource( 9 )
 HScrollBar/styles/grabber_highlight = SubResource( 9 )
 HScrollBar/styles/grabber_pressed = SubResource( 9 )
 HScrollBar/styles/scroll = SubResource( 9 )
 HScrollBar/styles/scroll_focus = SubResource( 9 )
-PanelContainer/styles/panel = SubResource( 7 )
+PanelContainer/styles/panel = SubResource( 4 )
 TabContainer/fonts/font = SubResource( 8 )
 TabContainer/styles/panel = SubResource( 5 )
 TabContainer/styles/tab_bg = SubResource( 12 )
@@ -112,44 +158,65 @@ anchor_bottom = 1.0
 margin_top = 31.0
 
 [node name="Parser" type="VBoxContainer" parent="TabContainer/Parser"]
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 1018.0
-margin_bottom = 563.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1019.0
+margin_bottom = 564.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
-margin_right = 1012.0
-margin_bottom = 23.0
+margin_right = 1014.0
+margin_bottom = 25.0
 
-[node name="Flavours" type="OptionButton" parent="TabContainer/Parser/Parser/HBoxContainer"]
-unique_name_in_owner = true
-margin_right = 85.0
-margin_bottom = 23.0
-text = "Flavours"
-
-[node name="Control" type="Control" parent="TabContainer/Parser/Parser/HBoxContainer"]
-margin_left = 89.0
-margin_right = 954.0
-margin_bottom = 23.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser/HBoxContainer"]
+margin_right = 335.0
+margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="Import" type="Button" parent="TabContainer/Parser/Parser/HBoxContainer"]
-margin_left = 958.0
-margin_right = 1012.0
-margin_bottom = 23.0
+[node name="Flavours" type="OptionButton" parent="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 86.0
+margin_bottom = 25.0
+text = "Flavours"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Parser/Parser/HBoxContainer"]
+margin_left = 339.0
+margin_right = 674.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Debug" type="Button" parent="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+margin_left = 142.0
+margin_right = 193.0
+margin_bottom = 25.0
+toggle_mode = true
+text = "Debug"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Parser/Parser/HBoxContainer"]
+margin_left = 678.0
+margin_right = 1014.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Import" type="Button" parent="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer2"]
+margin_left = 278.0
+margin_right = 336.0
+margin_bottom = 25.0
 text = "Import"
 
 [node name="HSplitContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
-margin_top = 27.0
-margin_right = 1012.0
-margin_bottom = 557.0
+margin_top = 29.0
+margin_right = 1014.0
+margin_bottom = 559.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SqlInput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
-margin_right = 504.0
+margin_right = 505.0
 margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -216,16 +283,25 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 -- Data exporting was unselected.
 
+-- Dumping structure for table vet-db.customer_pet
+CREATE TABLE IF NOT EXISTS `customer_pet` (
+  `customerId` int(11) NOT NULL,
+  `petId` int(11) NOT NULL,
+  PRIMARY KEY (`customerId`,`petId`),
+  KEY `FK__pet` (`petId`),
+  CONSTRAINT `FK__customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table vet-db.pet
 CREATE TABLE IF NOT EXISTS `pet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
-  `owner` int(11) DEFAULT NULL,
   `chip_code` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `chip_code` (`chip_code`),
-  KEY `owner` (`owner`),
-  CONSTRAINT `owner` FOREIGN KEY (`owner`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  UNIQUE KEY `chip_code` (`chip_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
@@ -266,8 +342,8 @@ script = ExtResource( 2 )
 
 [node name="ParserOutput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
-margin_left = 508.0
-margin_right = 1012.0
+margin_left = 509.0
+margin_right = 1014.0
 margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -298,5 +374,7 @@ physics_object_picking = true
 
 [node name="Graph" parent="TabContainer/Graph/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
-[connection signal="pressed" from="TabContainer/Parser/Parser/HBoxContainer/Import" to="." method="_on_Import_pressed"]
+[connection signal="item_selected" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer/Flavours" to="." method="_on_Flavours_item_selected"]
+[connection signal="toggled" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer3/Debug" to="." method="_on_Debug_toggled"]
+[connection signal="pressed" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer2/Import" to="." method="_on_Import_pressed"]
 [connection signal="visibility_changed" from="TabContainer/Graph" to="TabContainer/Graph/ViewportContainer" method="_on_Graph_visibility_changed"]

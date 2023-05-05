@@ -25,7 +25,7 @@ var patterns = {
 		CreateDatabase: 'CREATE DATABASE (IF NOT EXISTS )?`(?<name>[^`]+)`',
 		CreateTable: 'CREATE TABLE (IF NOT EXISTS)? `(?<name>[^`]+)` \\((?<cols>.+)\\)',
 		CreateColumn: '^\\s*`?(?<name>[^\\s`]+)`? (?<type>[^(\\s]+)',
-		SetPrimaryKey: '^\\s*PRIMARY KEY \\(`?(?<name>[^`]+)`?\\)',
+		SetPrimaryKey: '^\\s*PRIMARY KEY \\(((?>`[^`]+`\\|?)+)\\)',
 		SetUniqueKey: '^\\s*UNIQUE KEY (`[^`]+`)? \\(`?(?<name>[^`]+)`?\\)',
 		SetForeignKey: 'FOREIGN KEY \\(`?(?<l_key>[^`]+)`?\\) REFERENCES `?(?<f_table>[^`]+)`?\\s*\\(`?(?<f_key>[^`]+)`?\\)',
 		NotSupportedColumns: '^\\s*(KEY|CONSTRAINT)',
@@ -76,6 +76,9 @@ class Table:
 	func parse(command:String) -> Table:
 		var res = Sql.parse(command, Sql.CreateTable)
 		name = res.get_string("name")
+		var reg = RegEx.new()
+		reg.compile("`,`")
+		var r = reg.sub(command, '`|`')
 		var cols_commands = res.get_string("cols").split(',')
 		
 		for c in cols_commands:
@@ -94,6 +97,7 @@ class Table:
 	func add_primary_key(command):
 		var res = Sql.parse(command, Sql.SetPrimaryKey)
 		if res:
+			print(res.strings)
 			var col = res.get_string('name')
 			for c in cols.size():
 				if cols[c].name == col:

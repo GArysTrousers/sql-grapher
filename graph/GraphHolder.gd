@@ -12,7 +12,6 @@ func _ready():
 func set_viewport_size():
 	yield(get_tree(), "idle_frame")
 	viewport.size = rect_size
-	print(rect_size)
 
 func on_resized():
 	if viewport:

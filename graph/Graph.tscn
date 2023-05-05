@@ -1,8 +1,143 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://graph/Graph.gd" type="Script" id=1]
 [ext_resource path="res://graph/Camera.gd" type="Script" id=2]
 [ext_resource path="res://graph/GraphSettings.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=13]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.25, 0.25, 0.25, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=14]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.333333, 0.333333, 0.333333, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=15]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.203922, 0.203922, 0.203922, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.611765, 0.611765, 0.611765, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://JetBrainsMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+font_data = SubResource( 6 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=12]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 6.0
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+use_filter = true
+font_data = SubResource( 6 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+Button/styles/disabled = SubResource( 13 )
+Button/styles/focus = null
+Button/styles/hover = SubResource( 14 )
+Button/styles/normal = SubResource( 13 )
+Button/styles/pressed = SubResource( 15 )
+CheckButton/constants/hseparation = 7
+CheckButton/styles/disabled = SubResource( 16 )
+CheckButton/styles/focus = SubResource( 16 )
+CheckButton/styles/hover = SubResource( 16 )
+CheckButton/styles/hover_pressed = SubResource( 16 )
+CheckButton/styles/normal = SubResource( 17 )
+CheckButton/styles/pressed = SubResource( 16 )
+HScrollBar/styles/grabber = SubResource( 9 )
+HScrollBar/styles/grabber_highlight = SubResource( 9 )
+HScrollBar/styles/grabber_pressed = SubResource( 9 )
+HScrollBar/styles/scroll = SubResource( 9 )
+HScrollBar/styles/scroll_focus = SubResource( 9 )
+PanelContainer/styles/panel = SubResource( 4 )
+TabContainer/fonts/font = SubResource( 8 )
+TabContainer/styles/panel = SubResource( 5 )
+TabContainer/styles/tab_bg = SubResource( 12 )
+TabContainer/styles/tab_disabled = SubResource( 12 )
+TabContainer/styles/tab_fg = SubResource( 12 )
+TextEdit/colors/font_color = Color( 0.678431, 0.678431, 0.678431, 1 )
+TextEdit/colors/font_color_readonly = Color( 0.678431, 0.678431, 0.678431, 1 )
+TextEdit/styles/completion = SubResource( 4 )
+TextEdit/styles/focus = SubResource( 4 )
+TextEdit/styles/normal = SubResource( 4 )
+TextEdit/styles/read_only = SubResource( 4 )
+VScrollBar/styles/grabber = SubResource( 10 )
+VScrollBar/styles/scroll = SubResource( 11 )
 
 [node name="Graph" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,36 +153,53 @@ script = ExtResource( 2 )
 [node name="GraphSettings" type="VBoxContainer" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = SubResource( 3 )
+custom_constants/separation = 0
 script = ExtResource( 3 )
 
-[node name="ConnectionForces" type="CheckButton" parent="UI/GraphSettings"]
-margin_right = 198.0
-margin_bottom = 40.0
+[node name="AttractionForces" type="CheckButton" parent="UI/GraphSettings"]
+margin_right = 190.0
+margin_bottom = 32.0
+mouse_filter = 1
 pressed = true
-text = "Connection Forces"
+text = "Attraction Forces"
+
+[node name="RepulsionForces" type="CheckButton" parent="UI/GraphSettings"]
+margin_top = 32.0
+margin_right = 190.0
+margin_bottom = 64.0
+mouse_filter = 1
+pressed = true
+text = "Repulsion Forces"
 
 [node name="LockRotation" type="CheckButton" parent="UI/GraphSettings"]
-margin_top = 44.0
-margin_right = 198.0
-margin_bottom = 84.0
+margin_top = 64.0
+margin_right = 190.0
+margin_bottom = 96.0
+mouse_filter = 1
 pressed = true
 text = "Lock Rotation"
 
 [node name="Label" type="Label" parent="UI/GraphSettings"]
-margin_top = 88.0
-margin_right = 198.0
-margin_bottom = 102.0
+margin_top = 96.0
+margin_right = 190.0
+margin_bottom = 113.0
+mouse_filter = 1
 text = "Distance"
 align = 1
 
 [node name="DistanceMultiplier" type="HSlider" parent="UI/GraphSettings"]
-margin_top = 106.0
-margin_right = 198.0
-margin_bottom = 122.0
+margin_top = 113.0
+margin_right = 190.0
+margin_bottom = 129.0
+mouse_filter = 1
 max_value = 5.0
 step = 0.1
 value = 1.0
 
-[connection signal="pressed" from="UI/GraphSettings/ConnectionForces" to="UI/GraphSettings" method="_on_ConnectionForces_pressed"]
-[connection signal="pressed" from="UI/GraphSettings/LockRotation" to="UI/GraphSettings" method="_on_LockRotation_pressed"]
+[connection signal="mouse_entered" from="UI/GraphSettings" to="UI/GraphSettings" method="_on_GraphSettings_mouse_entered"]
+[connection signal="mouse_exited" from="UI/GraphSettings" to="UI/GraphSettings" method="_on_GraphSettings_mouse_exited"]
+[connection signal="toggled" from="UI/GraphSettings/AttractionForces" to="UI/GraphSettings" method="_on_AttractionForces_toggled"]
+[connection signal="toggled" from="UI/GraphSettings/RepulsionForces" to="UI/GraphSettings" method="_on_RepulsionForces_toggled"]
+[connection signal="toggled" from="UI/GraphSettings/LockRotation" to="UI/GraphSettings" method="_on_LockRotation_toggled"]
 [connection signal="value_changed" from="UI/GraphSettings/DistanceMultiplier" to="UI/GraphSettings" method="_on_DistanceMultiplier_value_changed"]

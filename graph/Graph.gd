@@ -19,18 +19,19 @@ func _ready():
 
 func _physics_process(delta):
 	if active:
-		for a in tables:
-			for b in tables:
-				if a != b and a.position.distance_to(b.position) < repel_distance:
-					a.apply_central_impulse(
-						a.position.direction_to(b.position) 
-						* (a.position.distance_to(b.position) - repel_distance * GraphSettings.distance_multiplier)
-						* repel_force)
-		if GraphSettings.connection_forces:
+		if GraphSettings.attraction_forces:
 			for con in connections:
 				force = con.get_force(fk_distance * GraphSettings.distance_multiplier)
 				con.a.apply_central_impulse(force * force_magnitude)
 				con.b.apply_central_impulse(-force * force_magnitude)
+		if GraphSettings.repulsion_forces:
+			for a in tables:
+				for b in tables:
+					if a != b and a.position.distance_to(b.position) < repel_distance:
+						a.apply_central_impulse(
+							a.position.direction_to(b.position) 
+							* (a.position.distance_to(b.position) - repel_distance * GraphSettings.distance_multiplier)
+							* repel_force)
 		update()
 	
 func _draw():

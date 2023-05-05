@@ -86,3 +86,7 @@ func parse_use(command:String):
 
 func _on_Flavours_item_selected(index):
 	pass # Replace with function body.
+
+
+func _on_Debug_toggled(button_pressed):
+	get_node("%CleanerOutput").visible = button_pressed
