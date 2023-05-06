@@ -79,14 +79,13 @@ func parse_use(command:String):
 	return re.search(command).get_string(1)
 
 		
-		
-		
-		
-
-
 func _on_Flavours_item_selected(index):
-	pass # Replace with function body.
+	$Contribute.popup_centered()
 
 
 func _on_Debug_toggled(button_pressed):
 	get_node("%CleanerOutput").visible = button_pressed
+
+
+func _on_LinkButton_pressed():
+	OS.shell_open("https://github.com/GArysTrousers/sql-grapher")

@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var Tables = $Tables 
-onready var GraphSettings = $UI/GraphSettings
+onready var GraphSettings = get_node("%GraphSettings")
 
 var active:bool = true
 
@@ -13,6 +13,7 @@ var fk_distance:float = 320
 var fk_force:float = 0.2
 var repel_distance:float = 250
 var repel_force: float = 0.5
+var con_font = preload("res://assets/fonts/ConnectionFont.tres")
 
 func _ready():
 	pass # Replace with function body.
@@ -43,6 +44,8 @@ func _draw():
 			mid + 20 * con.a_to_b().rotated(PI * 0.8), 
 			mid + 20 * con.a_to_b().rotated(PI * -0.8)], 
 			Palette.green, PoolVector2Array(), null, null, true)
+		if GraphSettings.show_fk_labels:
+			draw_string(con_font, con.mid_point() - con_font.get_string_size(con.label) / 2, con.label, Palette.white)
 		
 func set_database(db:Sql.Database):
 	connections = []
@@ -65,11 +68,12 @@ func set_database(db:Sql.Database):
 			if col.foreign_key:
 				make_connection(
 					table_map[table.name],
-					table_map[col.foreign_key.table_name]
+					table_map[col.foreign_key.table_name],
+					col.name
 				)
 	
 
-func make_connection(a, b, remove_if_exists:bool = false):
+func make_connection(a, b, label, remove_if_exists:bool = false):
 	if !a or !b:
 		return
 	for con in connections:
@@ -77,14 +81,16 @@ func make_connection(a, b, remove_if_exists:bool = false):
 			if remove_if_exists:
 				connections.erase(con)
 			return
-	connections.append(Connection.new(a, b))
+	connections.append(Connection.new(a, b, label))
 
 class Connection:
 	var a:Node2D
 	var b:Node2D
-	func _init(a:Node2D, b:Node2D):
+	var label:String
+	func _init(a:Node2D, b:Node2D, label:String = ""):
 		self.a = a
 		self.b = b
+		self.label = label
 	
 	func get_force(dist):
 		return a.position.direction_to(b.position) * (a.position.distance_to(b.position) - dist)

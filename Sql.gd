@@ -3,9 +3,11 @@ extends Node
 var flavour = Flavours.MySQL
 
 enum Flavours {
-	MySQL
+	MySQL,
+	PostgreSQL,
+	SQLServer
 }
-const flavour_names = ["MySQL"]
+const flavour_names = ["MySQL", "PostgreSQL", "SQL Server"]
 	
 
 enum {
@@ -23,9 +25,9 @@ var patterns = {
 	Flavours.MySQL: {
 		Command: '^(?<command>CREATE TABLE|USE|CREATE DATABASE)',
 		CreateDatabase: 'CREATE DATABASE (IF NOT EXISTS )?`(?<name>[^`]+)`',
-		CreateTable: 'CREATE TABLE (IF NOT EXISTS)? `(?<name>[^`]+)` \\((?<cols>.+)\\)',
+		CreateTable: 'CREATE TABLE (IF NOT EXISTS)? `?(?<name>[^`]+)`?\\s*\\((?<cols>.+)\\)',
 		CreateColumn: '^\\s*`?(?<name>[^\\s`]+)`? (?<type>[^(\\s]+)',
-		SetPrimaryKey: '^\\s*PRIMARY KEY \\(((?>`[^`]+`\\|?)+)\\)',
+		SetPrimaryKey: '^\\s*PRIMARY KEY \\((?<names>(?>`[^`]+`\\|?)+)\\)',
 		SetUniqueKey: '^\\s*UNIQUE KEY (`[^`]+`)? \\(`?(?<name>[^`]+)`?\\)',
 		SetForeignKey: 'FOREIGN KEY \\(`?(?<l_key>[^`]+)`?\\) REFERENCES `?(?<f_table>[^`]+)`?\\s*\\(`?(?<f_key>[^`]+)`?\\)',
 		NotSupportedColumns: '^\\s*(KEY|CONSTRAINT)',
@@ -74,11 +76,11 @@ class Table:
 	var cols:Array = []
 	
 	func parse(command:String) -> Table:
-		var res = Sql.parse(command, Sql.CreateTable)
-		name = res.get_string("name")
 		var reg = RegEx.new()
 		reg.compile("`,`")
-		var r = reg.sub(command, '`|`')
+		command = reg.sub(command, '`|`')
+		var res = Sql.parse(command, Sql.CreateTable)
+		name = res.get_string("name")
 		var cols_commands = res.get_string("cols").split(',')
 		
 		for c in cols_commands:
@@ -97,12 +99,12 @@ class Table:
 	func add_primary_key(command):
 		var res = Sql.parse(command, Sql.SetPrimaryKey)
 		if res:
-			print(res.strings)
-			var col = res.get_string('name')
+			var col:String = res.get_string('names')
+			col = col.replace('`', '')
+			var pks = col.split('|')
 			for c in cols.size():
-				if cols[c].name == col:
+				if pks.has(cols[c].name):
 					cols[c].primary_key = true
-					return
 	
 	func add_unique_key(command):
 		var res = Sql.parse(command, Sql.SetUniqueKey)

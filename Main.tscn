@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://SqlTextEdit.gd" type="Script" id=2]
@@ -74,6 +74,21 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="ImageTexture" id=19]
+
+[sub_resource type="ImageTexture" id=20]
+
+[sub_resource type="StyleBoxFlat" id=18]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="DynamicFontData" id=6]
 font_path = "res://JetBrainsMono-VariableFont_wght.ttf"
 
@@ -127,6 +142,9 @@ HScrollBar/styles/grabber_pressed = SubResource( 9 )
 HScrollBar/styles/scroll = SubResource( 9 )
 HScrollBar/styles/scroll_focus = SubResource( 9 )
 PanelContainer/styles/panel = SubResource( 4 )
+PopupMenu/icons/radio_checked = SubResource( 19 )
+PopupMenu/icons/radio_unchecked = SubResource( 20 )
+PopupMenu/styles/panel = SubResource( 18 )
 TabContainer/fonts/font = SubResource( 8 )
 TabContainer/styles/panel = SubResource( 5 )
 TabContainer/styles/tab_bg = SubResource( 12 )
@@ -374,7 +392,36 @@ physics_object_picking = true
 
 [node name="Graph" parent="TabContainer/Graph/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
+[node name="Contribute" type="AcceptDialog" parent="."]
+visible = true
+margin_right = 252.0
+margin_bottom = 137.0
+popup_exclusive = true
+window_title = "Oops..."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Contribute"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -41.0
+
+[node name="Label" type="Label" parent="Contribute/VBoxContainer"]
+margin_right = 236.0
+margin_bottom = 57.0
+text = "Only MySQL is impemented right now, you could help contribute more languages here:"
+align = 1
+autowrap = true
+
+[node name="LinkButton" type="Button" parent="Contribute/VBoxContainer"]
+margin_top = 61.0
+margin_right = 236.0
+margin_bottom = 86.0
+text = "GitHub Project"
+
 [connection signal="item_selected" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer/Flavours" to="." method="_on_Flavours_item_selected"]
 [connection signal="toggled" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer3/Debug" to="." method="_on_Debug_toggled"]
 [connection signal="pressed" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer2/Import" to="." method="_on_Import_pressed"]
 [connection signal="visibility_changed" from="TabContainer/Graph" to="TabContainer/Graph/ViewportContainer" method="_on_Graph_visibility_changed"]
+[connection signal="pressed" from="Contribute/VBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed"]
