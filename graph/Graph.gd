@@ -47,7 +47,10 @@ func _draw():
 		if GraphSettings.show_fk_labels:
 			draw_string(con_font, con.mid_point() - con_font.get_string_size(con.label) / 2, con.label, Palette.white)
 		
-func set_database(db:Sql.Database):
+func import_database(db_list:Array):
+	if db_list.size() <= 0:
+		return
+	var db = db_list[0]
 	connections = []
 	tables = []
 	for t in $Tables.get_children():
