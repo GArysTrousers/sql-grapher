@@ -3,9 +3,6 @@ extends Control
 signal database_imported(db_list)
 
 func _ready():
-	var flavour_selector = get_node('%Flavours')
-	for f in Sql.flavour_names:
-		flavour_selector.add_item(f)
 	call_deferred("parse_input")
 
 
@@ -15,57 +12,11 @@ func _on_Import_pressed():
 
 func parse_input():
 	var text = get_node("%SqlInput").text
-	
-	var re = RegEx.new()
-	# remove line comments
-	re.compile('--.+\n')
-	text = re.sub(text, '\n', true)
-	# remove inline comments
-	re.compile('/[*].+[*]/')
-	text = re.sub(text, '', true)
-	# remove blank commands
-	re.compile('\n;')
-	text = re.sub(text, '\n', true)
-	# remove blank lines
-	re.compile('\n{2,}')
-	text = re.sub(text, '\n\n', true)
-	# remove first blank lines
-	re.compile('^\n{2,}')
-	text = re.sub(text, '', true)
-	# remove decimal brackets
-	re.compile('decimal\\(\\d+,\\d+\\)')
-	text = re.sub(text, 'decimal()', true)
-	
+	text = Sql.clean_input(text)
 	get_node("%CleanerOutput").text = text
 	
-	# remove blank lines
-	re.compile('\n')
-	text = re.sub(text, '', true)
-	# remove extra spaces
-	re.compile(' {2,}')
-	text = re.sub(text, ' ', true)
-	
-	var commands = text.split(';')
-	
-	var db_list = []
-	var selected_db_index = -1
-	for c in commands:
-		var res = Sql.parse(c, Sql.Command)
-		if res:
-			match res.get_string('command'):
-				"CREATE DATABASE":
-					var db = Sql.Database.new().parse(c)
-					db_list.append(db)
-				"USE":
-					var db_name = parse_use(c)
-					for i in db_list.size():
-						if db_list[i].name == db_name:
-							selected_db_index = i
-							break
-				"CREATE TABLE":
-					if selected_db_index >= 0:
-						var table = Sql.Table.new().parse(c)
-						db_list[selected_db_index].tables.append(table)
+	var commands = Sql.split_input_to_commands(text)
+	var db_list = Sql.create_db_from_commands(commands)
 	
 	var output = ""
 	for db in db_list:
@@ -74,14 +25,7 @@ func parse_input():
 	
 	emit_signal("database_imported", db_list)
 
-func parse_use(command:String):
-	var re = RegEx.new()
-	re.compile('USE `(.+)`')
-	return re.search(command).get_string(1)
 
-		
-func _on_Flavours_item_selected(index):
-	$Contribute.popup_centered()
 
 
 func _on_Debug_toggled(button_pressed):

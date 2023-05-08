@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://SqlTextEdit.gd" type="Script" id=2]
@@ -6,7 +6,10 @@
 [ext_resource path="res://graph/Graph.tscn" type="PackedScene" id=4]
 [ext_resource path="res://graph/GraphHolder.gd" type="Script" id=5]
 [ext_resource path="res://Parser.gd" type="Script" id=6]
-[ext_resource path="res://Comparator.gd" type="Script" id=7]
+[ext_resource path="res://graph/Grapher.gd" type="Script" id=7]
+[ext_resource path="res://Comparator/Analiser.gd" type="Script" id=8]
+[ext_resource path="res://Comparator/Input.gd" type="Script" id=9]
+[ext_resource path="res://Comparator/Comparator.gd" type="Script" id=10]
 
 [sub_resource type="StyleBoxFlat" id=13]
 content_margin_left = 8.0
@@ -161,83 +164,130 @@ TextEdit/styles/read_only = SubResource( 4 )
 VScrollBar/styles/grabber = SubResource( 10 )
 VScrollBar/styles/scroll = SubResource( 11 )
 
-[node name="Main" type="Control"]
+[sub_resource type="DynamicFontData" id=21]
+font_path = "res://JetBrainsMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=22]
+size = 20
+font_data = SubResource( 21 )
+
+[node name="Main" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = SubResource( 3 )
 script = ExtResource( 1 )
 
-[node name="TabContainer" type="TabContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
+[node name="MenuBar" type="VBoxContainer" parent="."]
+margin_right = 132.0
+margin_bottom = 600.0
 
-[node name="Parser" type="PanelContainer" parent="TabContainer"]
+[node name="Label" type="Label" parent="MenuBar"]
+margin_right = 132.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 22 )
+text = "Sql Toolkit"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MenuBar"]
+margin_top = 31.0
+margin_right = 132.0
+margin_bottom = 85.0
+
+[node name="GoToGrapher" type="Button" parent="MenuBar/HBoxContainer"]
+margin_right = 132.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+text = "Grapher"
+align = 0
+
+[node name="GoToComparator" type="Button" parent="MenuBar/HBoxContainer"]
+margin_top = 29.0
+margin_right = 132.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+text = "Comparator"
+align = 0
+
+[node name="Control" type="Control" parent="MenuBar"]
+margin_top = 89.0
+margin_right = 132.0
+margin_bottom = 571.0
+size_flags_vertical = 3
+
+[node name="Flavours" type="OptionButton" parent="MenuBar"]
+unique_name_in_owner = true
+margin_top = 575.0
+margin_right = 132.0
+margin_bottom = 600.0
+text = "Flavours"
+
+[node name="Grapher" type="TabContainer" parent="."]
+margin_left = 136.0
+margin_right = 578.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 7 )
+
+[node name="Parser" type="PanelContainer" parent="Grapher"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 31.0
 script = ExtResource( 6 )
 
-[node name="Parser" type="VBoxContainer" parent="TabContainer/Parser"]
+[node name="Parser" type="VBoxContainer" parent="Grapher/Parser"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 1019.0
+margin_right = 437.0
 margin_bottom = 564.0
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
-margin_right = 1014.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Grapher/Parser/Parser"]
+margin_right = 432.0
 margin_bottom = 25.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser/HBoxContainer"]
-margin_right = 335.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Grapher/Parser/Parser/HBoxContainer"]
+margin_right = 141.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="Flavours" type="OptionButton" parent="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-margin_right = 86.0
-margin_bottom = 25.0
-text = "Flavours"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Parser/Parser/HBoxContainer"]
-margin_left = 339.0
-margin_right = 674.0
+[node name="HBoxContainer3" type="HBoxContainer" parent="Grapher/Parser/Parser/HBoxContainer"]
+margin_left = 145.0
+margin_right = 286.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Debug" type="Button" parent="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer3"]
+[node name="Debug" type="Button" parent="Grapher/Parser/Parser/HBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 142.0
-margin_right = 193.0
+margin_left = 45.0
+margin_right = 96.0
 margin_bottom = 25.0
 toggle_mode = true
 text = "Debug"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Parser/Parser/HBoxContainer"]
-margin_left = 678.0
-margin_right = 1014.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="Grapher/Parser/Parser/HBoxContainer"]
+margin_left = 290.0
+margin_right = 432.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Import" type="Button" parent="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer2"]
-margin_left = 278.0
-margin_right = 336.0
+[node name="Import" type="Button" parent="Grapher/Parser/Parser/HBoxContainer/HBoxContainer2"]
+margin_left = 84.0
+margin_right = 142.0
 margin_bottom = 25.0
 text = "Import"
 
-[node name="HSplitContainer" type="HBoxContainer" parent="TabContainer/Parser/Parser"]
+[node name="HSplitContainer" type="HBoxContainer" parent="Grapher/Parser/Parser"]
 margin_top = 29.0
-margin_right = 1014.0
+margin_right = 432.0
 margin_bottom = 559.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SqlInput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
+[node name="SqlInput" type="TextEdit" parent="Grapher/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
-margin_right = 505.0
+margin_right = 214.0
 margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -347,7 +397,7 @@ draw_tabs = true
 draw_spaces = true
 script = ExtResource( 2 )
 
-[node name="CleanerOutput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
+[node name="CleanerOutput" type="TextEdit" parent="Grapher/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
 visible = false
 margin_left = 338.0
@@ -361,10 +411,10 @@ draw_tabs = true
 draw_spaces = true
 script = ExtResource( 2 )
 
-[node name="ParserOutput" type="TextEdit" parent="TabContainer/Parser/Parser/HSplitContainer"]
+[node name="ParserOutput" type="TextEdit" parent="Grapher/Parser/Parser/HSplitContainer"]
 unique_name_in_owner = true
-margin_left = 509.0
-margin_right = 1014.0
+margin_left = 218.0
+margin_right = 432.0
 margin_bottom = 530.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -374,16 +424,339 @@ draw_tabs = true
 draw_spaces = true
 script = ExtResource( 3 )
 
-[node name="Contribute" type="AcceptDialog" parent="TabContainer/Parser"]
-visible = true
+[node name="Graph" type="PanelContainer" parent="Grapher"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 31.0
+
+[node name="GraphHolder" type="ViewportContainer" parent="Grapher/Graph"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 1019.0
+margin_bottom = 535.0
+script = ExtResource( 5 )
+
+[node name="Viewport" type="Viewport" parent="Grapher/Graph/GraphHolder"]
+size = Vector2( 100, 100 )
+handle_input_locally = false
+render_target_update_mode = 0
+physics_object_picking = true
+
+[node name="Graph" parent="Grapher/Graph/GraphHolder/Viewport" instance=ExtResource( 4 )]
+
+[node name="Comparator" type="TabContainer" parent="."]
+margin_left = 582.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 10 )
+
+[node name="Input" type="PanelContainer" parent="Comparator"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 31.0
+
+[node name="Input" type="HBoxContainer" parent="Comparator/Input"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 437.0
 margin_bottom = 564.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 9 )
+
+[node name="Database1" type="VBoxContainer" parent="Comparator/Input/Input"]
+margin_right = 214.0
+margin_bottom = 559.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Comparator/Input/Input/Database1"]
+margin_right = 214.0
+margin_bottom = 17.0
+text = "Database 1"
+align = 1
+
+[node name="Name" type="LineEdit" parent="Comparator/Input/Input/Database1"]
+margin_top = 21.0
+margin_right = 214.0
+margin_bottom = 48.0
+text = "Local"
+align = 1
+
+[node name="SqlInput" type="TextEdit" parent="Comparator/Input/Input/Database1"]
+margin_top = 52.0
+margin_right = 214.0
+margin_bottom = 559.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.4.22-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Dumping database structure for vet-db
+CREATE DATABASE IF NOT EXISTS `vet-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `vet-db`;
+
+-- Dumping structure for table vet-db.appointment
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `petId` int(11) DEFAULT NULL,
+  `vetId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_appointment_pet` (`petId`),
+  KEY `FK_appointment_vet_doctor` (`vetId`),
+  CONSTRAINT `FK_appointment_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_appointment_vet_doctor` FOREIGN KEY (`vetId`) REFERENCES `vet_doctor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.bill
+CREATE TABLE IF NOT EXISTS `bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `amount` decimal(20,6) NOT NULL DEFAULT 0.000000,
+  `personId` int(11) NOT NULL DEFAULT 0,
+  `petId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_bill_person` (`personId`),
+  KEY `FK_bill_pet` (`petId`),
+  CONSTRAINT `FK_bill_person` FOREIGN KEY (`personId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_bill_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.customer
+CREATE TABLE IF NOT EXISTS `customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.customer_pet
+CREATE TABLE IF NOT EXISTS `customer_pet` (
+  `customerId` int(11) NOT NULL,
+  `petId` int(11) NOT NULL,
+  PRIMARY KEY (`customerId`,`petId`),
+  KEY `FK__pet` (`petId`),
+  CONSTRAINT `FK__customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.pet
+CREATE TABLE IF NOT EXISTS `pet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `chip_code` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `chip_code` (`chip_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.vet_doctor
+CREATE TABLE IF NOT EXISTS `vet_doctor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+"
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+script = ExtResource( 2 )
+
+[node name="Database2" type="VBoxContainer" parent="Comparator/Input/Input"]
+margin_left = 218.0
+margin_right = 432.0
+margin_bottom = 559.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Comparator/Input/Input/Database2"]
+margin_right = 214.0
+margin_bottom = 17.0
+text = "Database 2"
+align = 1
+
+[node name="Name" type="LineEdit" parent="Comparator/Input/Input/Database2"]
+margin_top = 21.0
+margin_right = 214.0
+margin_bottom = 48.0
+text = "Production"
+align = 1
+
+[node name="SqlInput" type="TextEdit" parent="Comparator/Input/Input/Database2"]
+margin_top = 52.0
+margin_right = 214.0
+margin_bottom = 559.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.4.22-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Dumping database structure for vet-db
+CREATE DATABASE IF NOT EXISTS `vet-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `vet-db`;
+
+-- Dumping structure for table vet-db.appointment
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `petId` int(11) DEFAULT NULL,
+  `vetId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_appointment_pet` (`petId`),
+  KEY `FK_appointment_vet_doctor` (`vetId`),
+  CONSTRAINT `FK_appointment_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_appointment_vet_doctor` FOREIGN KEY (`vetId`) REFERENCES `vet_doctor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.bill
+CREATE TABLE IF NOT EXISTS `bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `amount` decimal(20,6) NOT NULL DEFAULT 0.000000,
+  `personId` int(11) NOT NULL DEFAULT 0,
+  `petId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_bill_person` (`personId`),
+  KEY `FK_bill_pet` (`petId`),
+  CONSTRAINT `FK_bill_person` FOREIGN KEY (`personId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_bill_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.customer
+CREATE TABLE IF NOT EXISTS `customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.pet
+CREATE TABLE IF NOT EXISTS `pet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `chip_code` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `chip_code` (`chip_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vet-db.vet_doctor
+CREATE TABLE IF NOT EXISTS `vet_doctor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Data exporting was unselected.
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+"
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+script = ExtResource( 2 )
+
+[node name="Analise" type="PanelContainer" parent="Comparator"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 31.0
+size_flags_horizontal = 3
+
+[node name="Analiser" type="VBoxContainer" parent="Comparator/Analise"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 437.0
+margin_bottom = 564.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource( 8 )
+
+[node name="Scroll" type="ScrollContainer" parent="Comparator/Analise/Analiser"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tables" type="GridContainer" parent="Comparator/Analise/Analiser/Scroll"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="Contribute" type="AcceptDialog" parent="."]
+margin_left = -263.0
+margin_top = 41.0
+margin_right = -15.0
+margin_bottom = 177.0
 popup_exclusive = true
 window_title = "Oops..."
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Parser/Contribute"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Contribute"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -391,292 +764,22 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -41.0
 
-[node name="Label" type="Label" parent="TabContainer/Parser/Contribute/VBoxContainer"]
-margin_right = 998.0
-margin_bottom = 17.0
+[node name="Label" type="Label" parent="Contribute/VBoxContainer"]
+margin_right = 232.0
+margin_bottom = 57.0
 text = "Only MySQL is impemented right now, you could help contribute more languages here:"
 align = 1
 autowrap = true
 
-[node name="LinkButton" type="Button" parent="TabContainer/Parser/Contribute/VBoxContainer"]
-margin_top = 21.0
-margin_right = 998.0
-margin_bottom = 46.0
+[node name="LinkButton" type="Button" parent="Contribute/VBoxContainer"]
+margin_top = 61.0
+margin_right = 232.0
+margin_bottom = 86.0
 text = "GitHub Project"
 
-[node name="Graph" type="PanelContainer" parent="TabContainer"]
-visible = false
-margin_top = 31.0
-margin_right = 12.0
-margin_bottom = 12.0
-
-[node name="GraphHolder" type="ViewportContainer" parent="TabContainer/Graph"]
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 6.0
-margin_bottom = 6.0
-script = ExtResource( 5 )
-
-[node name="Viewport" type="Viewport" parent="TabContainer/Graph/GraphHolder"]
-size = Vector2( 100, 100 )
-handle_input_locally = false
-render_target_update_mode = 0
-physics_object_picking = true
-
-[node name="Graph" parent="TabContainer/Graph/GraphHolder/Viewport" instance=ExtResource( 4 )]
-
-[node name="Comparator" type="PanelContainer" parent="TabContainer"]
-visible = false
-margin_right = 10.0
-margin_bottom = 10.0
-script = ExtResource( 7 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Comparator"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Comparator/HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="TabContainer/Comparator/HBoxContainer/VBoxContainer"]
-margin_right = 40.0
-margin_bottom = 17.0
-
-[node name="SqlInput" type="TextEdit" parent="TabContainer/Comparator/HBoxContainer/VBoxContainer"]
-margin_right = 505.0
-margin_bottom = 530.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.4.22-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- Dumping database structure for vet-db
-CREATE DATABASE IF NOT EXISTS `vet-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `vet-db`;
-
--- Dumping structure for table vet-db.appointment
-CREATE TABLE IF NOT EXISTS `appointment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date DEFAULT NULL,
-  `time` time DEFAULT NULL,
-  `petId` int(11) DEFAULT NULL,
-  `vetId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_appointment_pet` (`petId`),
-  KEY `FK_appointment_vet_doctor` (`vetId`),
-  CONSTRAINT `FK_appointment_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_appointment_vet_doctor` FOREIGN KEY (`vetId`) REFERENCES `vet_doctor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.bill
-CREATE TABLE IF NOT EXISTS `bill` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
-  `amount` decimal(20,6) NOT NULL DEFAULT 0.000000,
-  `personId` int(11) NOT NULL DEFAULT 0,
-  `petId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_bill_person` (`personId`),
-  KEY `FK_bill_pet` (`petId`),
-  CONSTRAINT `FK_bill_person` FOREIGN KEY (`personId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_bill_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.customer
-CREATE TABLE IF NOT EXISTS `customer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.customer_pet
-CREATE TABLE IF NOT EXISTS `customer_pet` (
-  `customerId` int(11) NOT NULL,
-  `petId` int(11) NOT NULL,
-  PRIMARY KEY (`customerId`,`petId`),
-  KEY `FK__pet` (`petId`),
-  CONSTRAINT `FK__customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK__pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.pet
-CREATE TABLE IF NOT EXISTS `pet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `chip_code` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `chip_code` (`chip_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.vet_doctor
-CREATE TABLE IF NOT EXISTS `vet_doctor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-"
-show_line_numbers = true
-draw_tabs = true
-draw_spaces = true
-script = ExtResource( 2 )
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Comparator/HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="TabContainer/Comparator/HBoxContainer/VBoxContainer2"]
-margin_right = 40.0
-margin_bottom = 17.0
-
-[node name="SqlInput" type="TextEdit" parent="TabContainer/Comparator/HBoxContainer/VBoxContainer2"]
-margin_right = 505.0
-margin_bottom = 530.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.4.22-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- Dumping database structure for vet-db
-CREATE DATABASE IF NOT EXISTS `vet-db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `vet-db`;
-
--- Dumping structure for table vet-db.appointment
-CREATE TABLE IF NOT EXISTS `appointment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date DEFAULT NULL,
-  `time` time DEFAULT NULL,
-  `petId` int(11) DEFAULT NULL,
-  `vetId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_appointment_pet` (`petId`),
-  KEY `FK_appointment_vet_doctor` (`vetId`),
-  CONSTRAINT `FK_appointment_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_appointment_vet_doctor` FOREIGN KEY (`vetId`) REFERENCES `vet_doctor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.bill
-CREATE TABLE IF NOT EXISTS `bill` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
-  `amount` decimal(20,6) NOT NULL DEFAULT 0.000000,
-  `personId` int(11) NOT NULL DEFAULT 0,
-  `petId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_bill_person` (`personId`),
-  KEY `FK_bill_pet` (`petId`),
-  CONSTRAINT `FK_bill_person` FOREIGN KEY (`personId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_bill_pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.customer
-CREATE TABLE IF NOT EXISTS `customer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.customer_pet
-CREATE TABLE IF NOT EXISTS `customer_pet` (
-  `customerId` int(11) NOT NULL,
-  `petId` int(11) NOT NULL,
-  PRIMARY KEY (`customerId`,`petId`),
-  KEY `FK__pet` (`petId`),
-  CONSTRAINT `FK__customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK__pet` FOREIGN KEY (`petId`) REFERENCES `pet` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.pet
-CREATE TABLE IF NOT EXISTS `pet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `chip_code` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `chip_code` (`chip_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
--- Dumping structure for table vet-db.vet_doctor
-CREATE TABLE IF NOT EXISTS `vet_doctor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-"
-show_line_numbers = true
-draw_tabs = true
-draw_spaces = true
-script = ExtResource( 2 )
-
-[connection signal="item_selected" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer/Flavours" to="TabContainer/Parser" method="_on_Flavours_item_selected"]
-[connection signal="toggled" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer3/Debug" to="TabContainer/Parser" method="_on_Debug_toggled"]
-[connection signal="pressed" from="TabContainer/Parser/Parser/HBoxContainer/HBoxContainer2/Import" to="TabContainer/Parser" method="_on_Import_pressed"]
-[connection signal="pressed" from="TabContainer/Parser/Contribute/VBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed"]
-[connection signal="visibility_changed" from="TabContainer/Graph" to="TabContainer/Graph/GraphHolder" method="_on_Graph_visibility_changed"]
+[connection signal="pressed" from="MenuBar/HBoxContainer/GoToGrapher" to="." method="_on_GoToGrapher_pressed"]
+[connection signal="pressed" from="MenuBar/HBoxContainer/GoToComparator" to="." method="_on_GoToComparator_pressed"]
+[connection signal="item_selected" from="MenuBar/Flavours" to="." method="_on_Flavours_item_selected"]
+[connection signal="toggled" from="Grapher/Parser/Parser/HBoxContainer/HBoxContainer3/Debug" to="Grapher/Parser" method="_on_Debug_toggled"]
+[connection signal="pressed" from="Grapher/Parser/Parser/HBoxContainer/HBoxContainer2/Import" to="Grapher/Parser" method="_on_Import_pressed"]
+[connection signal="visibility_changed" from="Grapher/Graph" to="Grapher/Graph/GraphHolder" method="_on_Graph_visibility_changed"]

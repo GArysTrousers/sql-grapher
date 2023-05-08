@@ -8,14 +8,10 @@ func init(table):
 	data = table
 	
 func _ready():
-	get_node("%TableName").text = data.name
-	for col in data.cols:
-		var l = preload("res://graph/ColumnNode.tscn").instance()
-		l.init(col)
-		get_node("%Columns").add_child(l)
+	$TableInfo.init(data)
 	
 	yield(get_tree(), "idle_frame")
-	$CollisionShape2D.shape.extents = $Info.rect_size / 2
+	$CollisionShape2D.shape.extents = $TableInfo.rect_size / 2
 	
 func _physics_process(delta):
 	if grabbed:
