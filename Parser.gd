@@ -29,8 +29,12 @@ func parse_input():
 
 
 func _on_Debug_toggled(button_pressed):
-	get_node("%CleanerOutput").visible = button_pressed
+	get_node("%Clean").visible = button_pressed
 
 
 func _on_LinkButton_pressed():
 	OS.shell_open("https://github.com/GArysTrousers/sql-grapher")
+
+
+func _on_Clear_toggled(button_pressed):
+	get_node("%SqlInput").text = ""

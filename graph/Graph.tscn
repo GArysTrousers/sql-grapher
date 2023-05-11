@@ -218,6 +218,16 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
+[node name="Label" type="Label" parent="UI"]
+modulate = Color( 1, 1, 1, 0.466667 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -48.0
+text = "Left Click + Drag: Move Table
+Right Click + Drag: Move Viewport
+Scroll Wheel: Zoom"
+
 [connection signal="mouse_entered" from="UI/SettingsPanel" to="UI/SettingsPanel" method="_on_SettingsPanel_mouse_entered"]
 [connection signal="mouse_exited" from="UI/SettingsPanel" to="UI/SettingsPanel" method="_on_SettingsPanel_mouse_exited"]
 [connection signal="mouse_entered" from="UI/SettingsPanel/GraphSettings" to="UI/SettingsPanel/GraphSettings" method="_on_GraphSettings_mouse_entered"]

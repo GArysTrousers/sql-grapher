@@ -18,6 +18,7 @@ func parse_input(text):
 	var commands = Sql.split_input_to_commands(text)
 	var db_list = Sql.create_db_from_commands(commands)
 	return db_list
-	
-	
-	
+
+
+func _on_Import_pressed():
+	import()

@@ -2,6 +2,8 @@ extends Control
 
 
 func set_databases(name1:String, db1:Sql.Database, name2:String, db2:Sql.Database):
+	for c in $Scroll/Tables.get_children():
+		c.queue_free()
 	var tables = []
 	for t in db1.tables:
 		tables.append(t.name)
@@ -16,6 +18,8 @@ func set_databases(name1:String, db1:Sql.Database, name2:String, db2:Sql.Databas
 		var result = PoolStringArray()
 		var result_label = Label.new()
 		result_label.size_flags_horizontal = SIZE_EXPAND
+		result_label.align = Label.ALIGN_CENTER
+		result_label.valign = Label.VALIGN_CENTER
 		
 		if db1.get_table(t_name):
 			var t = preload("res://TableInfo.tscn").instance()
@@ -38,6 +42,7 @@ func set_databases(name1:String, db1:Sql.Database, name2:String, db2:Sql.Databas
 		result_label.text = result.join('\n')
 		if result_label.text == "":
 			result_label.text = "Match"
+			
 		$Scroll/Tables.add_child(result_label)
 
 func add_db_names(n1, n2):

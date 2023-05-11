@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Sql Grapher"
+config/name="Sql Toolkit"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
@@ -18,6 +18,11 @@ config/icon="res://icon.png"
 
 Sql="*res://Sql.gd"
 Palette="*res://global/Palette.gd"
+
+[display]
+
+window/size/width=1200
+window/size/height=800
 
 [gui]
 

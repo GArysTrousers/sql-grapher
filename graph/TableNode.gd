@@ -8,7 +8,7 @@ func init(table):
 	data = table
 	
 func _ready():
-	$TableInfo.init(data)
+	$TableInfo.init(data, true)
 	
 	yield(get_tree(), "idle_frame")
 	$CollisionShape2D.shape.extents = $TableInfo.rect_size / 2

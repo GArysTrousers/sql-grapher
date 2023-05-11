@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-func init(col:Sql.Column):
+func init(col:Sql.Column, add_to_col_node_group:bool = false):
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$Info/Name.text = col.name
 	$Info/DataType.text = ':' + col.type
@@ -11,6 +11,8 @@ func init(col:Sql.Column):
 		add_tag("FK", Palette.green)
 	if col.unique_key:
 		add_tag("UNQ", Palette.purple)
+	if add_to_col_node_group:
+		add_to_group("col_nodes")
 
 func add_tag(text:String, color:Color):
 	var tag = Label.new()
