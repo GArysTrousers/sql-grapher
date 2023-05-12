@@ -688,7 +688,6 @@ CREATE TABLE IF NOT EXISTS `bill` (
 CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -712,7 +711,6 @@ CREATE TABLE IF NOT EXISTS `pet` (
   `name` varchar(50) DEFAULT NULL,
   `chip_code` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `chip_code` (`chip_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.

@@ -191,7 +191,13 @@ class Table:
 			for c in cols.size():
 				if cols[c].name == local_key:
 					cols[c].foreign_key = ForeignKey.new(foreign_table, foreign_key)
-		
+	
+	func get_col_by_name(col_name:String):
+		for c in cols:
+			if c.name == col_name:
+				return c
+		return null
+	
 	func _to_string():
 		var cols_str = ""
 		for c in cols:
