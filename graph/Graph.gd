@@ -90,15 +90,15 @@ class Connection:
 	var a:Node2D
 	var b:Node2D
 	var label:String
-	func _init(a:Node2D, b:Node2D, label:String = ""):
-		self.a = a
-		self.b = b
-		self.label = label
+	func _init(_a:Node2D, _b:Node2D, _label:String = ""):
+		a = _a
+		b = _b
+		label = _label
 	
 	func get_force(dist):
 		return a.position.direction_to(b.position) * (a.position.distance_to(b.position) - dist)
-	func is_same(a, b):
-		return (self.a == a && self.b == b) || (self.b == a && self.a == b)
+	func is_same(a2, b2):
+		return (a == a2 && b == b2) || (b == a2 && a == b2)
 	func mid_point():
 		return (a.position + b.position) / 2
 	func a_to_b():

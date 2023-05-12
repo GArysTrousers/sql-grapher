@@ -19,6 +19,11 @@ config/icon="res://icon.png"
 Sql="*res://Sql.gd"
 Palette="*res://global/Palette.gd"
 
+[debug]
+
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=1200

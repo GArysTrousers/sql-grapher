@@ -19,7 +19,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="DynamicFontData" id=6]
-font_path = "res://JetBrainsMono-VariableFont_wght.ttf"
+font_path = "res://assets/fonts/JetBrainsMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=7]
 size = 15

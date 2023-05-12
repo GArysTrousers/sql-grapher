@@ -22,3 +22,7 @@ func parse_input(text):
 
 func _on_Import_pressed():
 	import()
+
+func _on_Clear_pressed():
+	$Database1/SqlInput.text = ""
+	$Database2/SqlInput.text = ""

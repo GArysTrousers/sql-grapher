@@ -75,7 +75,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="DynamicFontData" id=6]
-font_path = "res://JetBrainsMono-VariableFont_wght.ttf"
+font_path = "res://assets/fonts/JetBrainsMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=8]
 font_data = SubResource( 6 )
@@ -223,7 +223,8 @@ modulate = Color( 1, 1, 1, 0.466667 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -48.0
+margin_top = -57.0
+theme = SubResource( 3 )
 text = "Left Click + Drag: Move Table
 Right Click + Drag: Move Viewport
 Scroll Wheel: Zoom"

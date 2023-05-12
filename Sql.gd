@@ -207,7 +207,6 @@ class Column:
 	var foreign_key:ForeignKey
 	
 	func parse(command:String) -> Column:
-		var re = RegEx.new()
 		var res
 		res = Sql.parse(command, Sql.CreateColumn)
 		name = res.get_string("name")
